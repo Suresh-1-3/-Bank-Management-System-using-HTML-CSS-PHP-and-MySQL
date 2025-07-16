@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: aqua; /* Adjust background color as needed */
+        }
+        img {
+            width: 1530px; /* Adjust size of loading image */
+            height: 950px;
+        }
+    </style>
+    <script>
+        // Redirect to login.html after 4 seconds
+        setTimeout(function() {
+            window.location.href = 'login.html';
+        }, 1000);
+    </script>
+</head>
+<body>
+    <img src="b1.jpg" alt="Loading..." /> <!-- Update with your loading image path -->
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Login & Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: rgba(129, 218, 238, 0.9); /* 40% opacity */
+            background-image: url("bnn.jpg");
+            background-repeat: no-repeat; 
+            background-size: cover; /* corrected from "covrer" */
+            background-position: center;
+            height: 100vh; 
+            margin: 0;
+            
+            
+            
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            align-content: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input{
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        
+        button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 106%;
+        }
+
+        button {
+            cursor: pointer;
+
+        }
+
+        /* Toast Styles */
+        #toast {
+            visibility: hidden;
+            max-width: 250px;
+            height: auto;
+            margin: -30px auto;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 30px;
+            font-size: 17px;
+            transform: translateX(-50%);
+        }
+
+        #toast.show {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; color: #313030;">Bank Management System</h2><br>
+        <br>
+
+        <div id="loginForm">
+            <h3>Login</h3>
+            <form action="login.php" method="POST">
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <button type="submit">Login</button>
+            </form>
+            <button onclick="showRegister()">Register</button>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h3>Register</h3>
+            <form action="register.php" method="POST">
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <button type="submit">Register</button>
+            </form>
+            <button onclick="showLogin()">Back to Login</button>
+        </div>
+
+        <!-- Toast container -->
+        <div id="toast"></div>
+    </div>
+
+    <script>
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        // Function to show toast message
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000); // Hide the toast after 3 seconds
+        }
+
+        // Show toast message based on URL query parameter
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.has('login')) {
+                showToast("Login successful!");
+            } else if (urlParams.has('register')) {
+                showToast("Registration successful!");
+            } else if (urlParams.has('error')) {
+                const errorType = urlParams.get('error');
+                if (errorType === 'invalid_password') {
+                    showToast("Invalid password.");
+                } else if (errorType === 'invalid_username') {
+                    showToast("Invalid username.");
+                }
+            }
+        };
+
+        document.getElementById('loginForm').style.display = 'block';  // Default to showing login form on page load
+    </script>
+</body>
+</html>
